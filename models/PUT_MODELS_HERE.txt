@@ -1,0 +1,2 @@
+Please put 'shape_predictor_68_face_landmarks.dat' and your Keras '.h5' model file (e.g., 'model_68_rgb_0.h5') in this 'models' directory.
+If using dlib CNN face detector, also add 'mmod_human_face_detector.dat'.

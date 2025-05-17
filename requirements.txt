@@ -1,0 +1,9 @@
+
+tensorflow-gpu==2.3.0
+opencv-python
+dlib
+numpy
+Pillow
+gradio
+configparser
+tqdm
