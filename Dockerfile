@@ -1,7 +1,6 @@
-
-# TensorFlow 2.3.0은 CUDA 10.1과 cuDNN 7.6을 요구합니다.
-# nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04 이미지를 기반으로 합니다.
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+# TensorFlow 2.4.1은 CUDA 11.0과 cuDNN 8.0을 권장합니다.
+# nvidia/cuda:11.0.3-cudnn8-devel-ubuntu20.04 이미지를 기반으로 합니다.
+FROM nvidia/cuda:11.0.3-cudnn8-devel-ubuntu20.04
 
 # 환경 변수 설정
 ENV DEBIAN_FRONTEND=noninteractive
@@ -9,16 +8,12 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV PYTHONUNBUFFERED=1
 
-# 시스템 패키지 설치
-# Python 3.7 설치 (Ubuntu 18.04는 기본 Python3이 3.6일 수 있음)
+# 시스템 패키지 설치 (Ubuntu 20.04는 기본 Python3이 3.8일 가능성이 높음)
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends software-properties-common && \
-    add-apt-repository -y ppa:deadsnakes/ppa && \
-    apt-get update && \
-    apt-get install -y \
-    python3.7 \
-    python3.7-dev \
-    python3.7-venv \
+    apt-get install -y --no-install-recommends \
+    python3.8 \
+    python3.8-dev \
+    python3.8-venv \
     python3-pip \
     git \
     cmake \
@@ -44,12 +39,14 @@ RUN apt-get update && \
     unzip && \
     rm -rf /var/lib/apt/lists/*
 
+# python3.8을 기본 python3으로 설정
+# Ubuntu 20.04는 python3.8이 기본 Python 3일 수 있으므로,
+# 아래 update-alternatives는 필요에 따라 주석 처리하거나 제거할 수 있습니다.
+# 만약 시스템에 여러 Python3 버전이 설치될 가능성이 있다면 유지하는 것이 좋습니다.
+RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 10 && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3.8 10
 
-# python3.7을 기본 python3으로 설정
-RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 10
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.7 10
-
-# pip 업그레이드 및 setuptools 설치 (dlib 설치 시 필요할 수 있음)
+# pip 업그레이드 및 setuptools 설치
 RUN python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel
 
 WORKDIR /app
