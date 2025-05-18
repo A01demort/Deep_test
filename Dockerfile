@@ -8,7 +8,7 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV PYTHONUNBUFFERED=1
 
-# 시스템 패키지 설치 (Ubuntu 20.04는 기본 Python3이 3.8일 가능성이 높음)
+# 시스템 패키지 설치
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     python3.8 \
@@ -40,9 +40,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # python3.8을 기본 python3으로 설정
-# Ubuntu 20.04는 python3.8이 기본 Python 3일 수 있으므로,
-# 아래 update-alternatives는 필요에 따라 주석 처리하거나 제거할 수 있습니다.
-# 만약 시스템에 여러 Python3 버전이 설치될 가능성이 있다면 유지하는 것이 좋습니다.
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.8 10 && \
     update-alternatives --install /usr/bin/python python /usr/bin/python3.8 10
 
@@ -58,9 +55,9 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 # 애플리케이션 코드, 모델, 설정 파일 복사
 COPY . .
 
-# 모델 디렉토리 생성 (만약 COPY . . 에서 생성되지 않았다면)
+# 모델 디렉토리 생성
 RUN mkdir -p /app/models
-RUN mkdir -p /tmp # Gradio 출력용 임시 디렉토리
+RUN mkdir -p /tmp
 
 # Gradio 포트 노출
 EXPOSE 7860
