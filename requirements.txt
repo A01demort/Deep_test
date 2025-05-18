@@ -4,9 +4,10 @@ dlib
 numpy
 Pillow
 gradio==3.48.0
-altair>=5.0.0         # Gradio 3.48.0과 호환되는 Altair 버전 (또는 최신 안정 버전)
-typing-extensions>=4.8.0 # TypeIs를 포함하는 버전
+altair>=5.0.0
+typing-extensions>=4.8.0
 fastapi>=0.95.0,<0.100.0
 pydantic>=1.8.0,<2.0.0
+protobuf==3.20.3  # TensorFlow 2.4.x와 호환되는 protobuf 3.x 버전 명시
 configparser
 tqdm
