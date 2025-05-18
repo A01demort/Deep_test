@@ -29,4 +29,3 @@ jobs:
           tags: | # 여러 태그를 지정
             ${{ secrets.DOCKERHUB_USERNAME }}/deep-test:1.0.2
             ${{ secrets.DOCKERHUB_USERNAME }}/deep-test:latest
-            # 이제 이미지 이름이 'deep-test'로 설정되었습니다.
