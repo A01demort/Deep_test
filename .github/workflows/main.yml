@@ -1,30 +1,32 @@
 name: Docker 이미지 빌드 및 Docker Hub에 푸시
 
 on:
-  push: # 'push' 이벤트가 발생했을 때 실행
+  push:
     branches:
-      - main  # 'main' 브랜치에 push 되었을 때만 실행 (다른 브랜치 이름을 사용한다면 변경)
-  workflow_dispatch: # 수동으로 실행할 수 있도록 버튼 추가 (선택 사항)
+      - main
+  workflow_dispatch:
 
 jobs:
   build_and_push:
-    runs-on: ubuntu-latest # Actions를 실행할 가상 환경 종류
+    runs-on: ubuntu-latest
 
     steps:
       - name: 코드 체크아웃
-        uses: actions/checkout@v4 # 리포지토리 코드를 가져옴
+        uses: actions/checkout@v4
 
       - name: Docker Hub 로그인
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }} # GitHub Secrets에 저장된 Docker Hub 사용자 이름
-          password: ${{ secrets.DOCKERHUB_TOKEN }}    # GitHub Secrets에 저장된 Docker Hub 토큰
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Docker 이미지 빌드 및 푸시
         uses: docker/build-push-action@v5
         with:
-          context: . # Dockerfile이 있는 현재 디렉토리
-          file: ./Dockerfile # 사용할 Dockerfile 경로
-          push: true # 빌드 후 Docker Hub에 푸시
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/your-image-name:latest # 이미지 태그 (예: myusername/mycoolapp:latest)
-                                                                      # 'your-image-name' 부분을 원하는 이미지 이름으로 변경하세요.
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: | # 여러 태그를 지정
+            ${{ secrets.DOCKERHUB_USERNAME }}/deep-test:1.0.2
+            ${{ secrets.DOCKERHUB_USERNAME }}/deep-test:latest
+            # 이제 이미지 이름이 'deep-test'로 설정되었습니다.
