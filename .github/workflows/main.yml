@@ -27,5 +27,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: | # 여러 태그를 지정
-            ${{ secrets.DOCKERHUB_USERNAME }}/deep-test:1.0.2
-            ${{ secrets.DOCKERHUB_USERNAME }}/deep-test:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/deep-test:1.0.3
