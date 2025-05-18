@@ -4,8 +4,9 @@ dlib
 numpy
 Pillow
 gradio==3.48.0
-typing-extensions==4.7.1
-fastapi>=0.95.0,<0.100.0  # Gradio 3.x 후반과 호환되는 fastapi 버전 (pydantic V1 기반)
-pydantic>=1.8.0,<2.0.0    # pydantic V1 버전 명시
+altair>=5.0.0         # Gradio 3.48.0과 호환되는 Altair 버전 (또는 최신 안정 버전)
+typing-extensions>=4.8.0 # TypeIs를 포함하는 버전
+fastapi>=0.95.0,<0.100.0
+pydantic>=1.8.0,<2.0.0
 configparser
 tqdm
