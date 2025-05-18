@@ -4,6 +4,6 @@ dlib
 numpy
 Pillow
 gradio==3.48.0
-typing-extensions==4.7.1 # Gradio 3.x 후반대 버전과 잘 호환되는 특정 버전
+typing-extensions==4.7.1
 configparser
 tqdm
